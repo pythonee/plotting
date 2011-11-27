@@ -1,0 +1,9 @@
+digraph G{
+    shape=box3d
+    subgraph sub {
+        rankdir=LR;
+        shape=tab;
+        1 -> 3;
+        2 -> 3;
+    }
+}

@@ -1,0 +1,17 @@
+graph G{
+    e
+    subgraph clusterA{
+        a -- b;
+        subgraph clusterAA{
+            C -- D;
+        }
+    }
+
+    subgraph clusterB{
+        d -- f
+    }
+
+    d -- D
+    e -- clusterB
+    clusterAA -- clusterB
+}

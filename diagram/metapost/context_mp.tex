@@ -1,0 +1,267 @@
+\environment pythonee
+
+\starttext
+\section{Chinese test}
+\startMPcode
+drawarrow origin--(0,100);
+drawarrow origin--(100,0);
+drawdot origin withpen pencircle scaled 2pt;
+label.bot(btex 原点 etex, origin);
+label.lft(btex $y$ etex, (0,100));
+label.lrt(btex $x$ etex, (100,0));
+\stopMPcode
+
+\section{Curve}
+
+\startMPcode
+
+draw (0,0){up} .. (2cm,0){up} .. cycle;
+
+\stopMPcode
+
+\section{full circle}
+
+\startMPcode
+
+draw (0,0){up} .. (2cm,0){down} .. cycle;
+
+\stopMPcode
+
+
+\section{axis}
+
+\startMPcode
+
+u:=1cm;
+draw (-2u,0)--(2u,0);
+draw (0,-2u)--(0,2u);
+for i=-2u step u until 2u:
+    draw (i,u/10)--(i,-u/10);
+    draw (u/10,i)--(-u/10,i);
+endfor;
+for i=-2u step u/5 until 2u:
+    draw (i,u/20)--(i,-u/20);
+    draw (u/20,i)--(-u/20,i);
+endfor;
+
+\stopMPcode
+
+
+\section{gravity}
+
+\startMPcode
+
+pair A;A := (0,0);
+pair B;B := (2cm,0);
+pair C;C := (1cm,3cm);
+draw A -- B -- C -- cycle;
+draw A -- 1/2[B,C];
+draw B -- 1/2[A,C];
+draw C -- 1/2[A,B];
+pair G; G = whatever[A,1/2[B,C]];
+        G = whatever[B,1/2[A,C]];
+        G = whatever[C,1/2[A,B]];
+dotlabel.llft(btex A etex,A);
+dotlabel.lrt(btex B etex,B);
+dotlabel.top(btex C etex,C);
+dotlabel.bot(btex C' etex,1/2[A,B]);
+dotlabel.urt(btex A' etex,1/2[B,C]);
+dotlabel.ulft(btex B' etex,1/2[A,C]);
+dotlabel.llft(btex G etex,G);
+\stopMPcode
+
+\section{geometry}
+
+\startMPcode
+
+ pair A; A=dir(0)*1cm;
+ pair B; B=dir(72)*1cm;
+ pair C; C=dir(144)*1cm;
+ pair D; D=dir(216)*1cm;
+ pair E; E=dir(288)*1cm;
+
+ fill A--C--E--B--D--cycle withcolor .8*white;
+
+\stopMPcode
+
+\startMPcode
+u := 1.25cm;
+color gray; gray := 0.6white;
+pair p[];
+p0 = (0,0); p1 = (2u,3u); p2 = (3u,2u);
+
+def drawpoint(expr z, c) = draw z
+    withpen pencircle scaled 3 withcolor c;
+enddef;
+
+beginfig(1);
+    path q; q := p0..p1..p2;
+    for i=0 upto length(q):
+        drawpoint(point i of q, black);
+        p3 := precontrol i of q;
+        p4 := postcontrol i of q;
+        draw p3--p4 withcolor gray;
+        drawpoint(p3, gray);
+        drawpoint(p4, gray);
+    endfor;
+    draw q;
+endfig;
+\stopMPcode
+
+
+\startMPcode
+
+pair A;A=(0,0);
+pair B;B=(2cm,0);
+pair C;C=(1cm,1cm);
+
+draw A{up} .. C;
+draw A{right} .. C;
+draw B -- C;
+draw A -- B;
+
+
+\stopMPcode
+
+
+\startMPcode
+
+alpha := 30;
+draw (0,0) -- 2cm*dir(0);
+draw (0,0) -- 2cm*dir(alpha);
+drawarrow 1cm * dir 0{dir 90} .. 1cm*dir alpha{dir(90+alpha)};
+
+\stopMPcode
+
+\section{Heart}
+\startMPcode
+
+path heart;
+
+heart := halfcircle shifted (-0.5bp,0bp)..{dir-50}(0bp,-1.5bp);
+heart := heart--reverse heart reflectedabout ((0,0),(0,1))--cycle;
+heart := heart scaled 60bp;
+
+draw heart;
+
+
+\stopMPcode
+
+\section{YinYan}
+\startMPcode
+pair A;A = (1cm,0);
+pair B;B = (0,1cm);
+pair C;C = (1cm,2cm);
+pair D;D = (1cm,1cm);
+
+
+fill C..B..A{dir(23)}..D{dir(157)} .. C{dir(23)} .. cycle scaled 2pt withcolor black;
+
+fill fullcircle scaled 18pt shifted (1.55cm,0.9cm) withcolor white;
+
+\stopMPcode
+
+\section{lambda}
+\startMPcode
+
+pair A;
+pair B;
+pair C;
+pair D;
+pair E;
+pair F;
+
+A := (1cm,3cm);
+B := (1.5cm,3cm);
+C := (2.8cm,0cm);
+D := (3.3cm,0.2cm);
+F := (0.5cm,0cm);
+E = whatever[B,C] = whatever[F,dir(50)*3cm]; 
+
+path t; t:=dir(-30) -- dir(90) -- dir(210) -- cycle;
+pen pentriangle;
+pentriangle := makepen(t);
+
+path s; s := (0,0) -- (1pt,0) -- (1pt,1pt) -- (0,1pt) -- cycle;
+pen pensquare;
+pensquare := makepen(s);
+
+draw A--B -- C -- D withpen pencircle scaled 10pt withcolor .7green+.7red; 
+
+draw E -- F withpen pentriangle scaled 8pt withcolor .7green+.7red; 
+
+%draw fullcircle withpen pentriangle scaled 8pt withcolor .7green+.7red;
+
+\stopMPcode
+
+\section{transform}
+\startMPcode
+
+pair A;
+pair B;
+pair C;
+
+
+A := (0,0);
+B := (6cm,0cm);
+
+C = whatever[A,dir(60)*6cm] = whatever[B,dir(60)*6cm];
+
+transform T;
+
+A transformed T = 1/5[A,B];
+B transformed T = 1/5[B,C];
+C transformed T = 4/5[A,C];
+
+path p;
+p= A -- B -- C -- cycle;
+
+rgbcolor midnightblue;
+midnightblue := (42/255,82/255,190/255);
+
+show xpart C;
+show ypart C;
+for i=0 upto 100:
+    fill p withcolor (i+1)*0.15*midnightblue;
+    p := p transformed T;
+
+endfor;
+
+\stopMPcode
+
+\section{tree}
+\startMPcode
+beginfig(1)
+    u:=1cm; branchrotation := 60;
+    offset := 180-branchrotation;
+    thinning := 0.7;
+    shortening := 0.8;
+    def drawit(expr p, linethickness) =
+        draw p withpen pencircle scaled linethickness;
+    enddef;
+    vardef tree(expr A,B,n,size) =
+        save C,D,thickness; pair C,D;
+        thickness := size;
+        C := shortening[B, A rotatedaround(B,
+           offset+uniformdeviate(branchrotation))];
+        D := shortening[B, A rotatedaround(B,
+           -offset-uniformdeviate(branchrotation))];
+    if n>0:
+        drawit(A--B, thickness);
+        thickness := thinning*thickness;
+        tree(B, C, n-1, thickness);
+        tree(B, D, n-1, thickness);
+    else:
+        drawit(A--B,thickness);
+        thickness := thinning*thickness;
+        drawit(B--C, thickness);
+        drawit(B--D, thickness);
+    fi;
+    enddef;
+    tree((0,0), (0,u), 10, 2mm);
+endfig;
+
+\stopMPcode
+
+\stoptext
+

@@ -1,0 +1,14 @@
+digraph G{
+    rankdir=LR
+    Kris[shape=circle]
+    Pythonee[color=white,label="",shape=box,shapefile="stick.png"]
+    subgraph Pythonee_graph{
+        Pythonee;
+        label="Pythonee";
+        labelloc=b;
+        color=white;
+    }
+    Pythonee -> Kris [label=love dir=both]
+
+    label="Bi-wisdom"
+}

@@ -1,0 +1,9 @@
+graph G {
+    node[shape=record]
+    a[label=<<b>"a"</b>>]
+    a -- {e f g}
+    b[label="b"]
+    b -- {e f g}
+    c[label="c"]
+    c -- {e f g}
+}

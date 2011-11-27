@@ -1,0 +1,65 @@
+digraph G {
+/*图片生成命令:: need:: apt-get install graphviz-cairo
+$ dot -Tpng:cairo trac-stage-enhancement-0.5.3.dot -o trac-stage-enhancement-0.5.3.png
+
+Zoomq::090212 for #1550
+*/
+    /*全局设定 size="10,23",*/
+    graph [label="KSPEG传票流程图谱 \n Zoom.Quiet[090211 14:08]",
+        fontsize=11.0,
+        fontname="VeraSansYuanTi-Regular.ttf",
+        ratio=compress,
+        size="20,11",
+        rankdir=TB,
+        ];
+    node[fontsize=10.0,
+        fontname="VeraSansYuanTi-Regular.ttf",
+        style=filled,
+        fillcolor=lightyellow,
+        color=red4,
+        shape=ellipse,];
+    edge [fontsize=9.0,
+        fontname="VeraSansYuanTi-Regular.ttf",
+        fontcolor=darkolivegreen,
+        color=red4,
+		dir=both,
+		arrowhead=vee,
+		arrowtail=none,
+        ];
+
+    /*对象关系*/
+	
+	start->creat    [label="stage:TODO",];
+	creat->try      [label="stage:Try",color="darkgreen"];
+	try->try        [label="指派他人",color="darkgreen"];
+	test->test      [label="stage:Review",color="yellowgreen"];
+	try->test       [label="stage:Blessed",color="darkgreen"];
+	test->deploy    [label="stage:Upcoming \n 结论=fixed",color="darkgreen"];
+	deploy->test    [label="部署/升级 \n 测试确认",color="darkgreen"];
+	test->livin     [label="stage:Livin",color="darkgreen"];
+	/*
+	deploy->livin     [label="stage:Livin \n 完成部署",];
+	*/
+	livin->end      [label="搞掂 ",color="darkgreen"];
+
+	try->close      [label="暂存/放弃 \n 结论=duplicate|invalid|wontfix|worksforme",color="grey9"];
+	close->end      [label="stage:TODO \n 不予处理",color="grey9"];
+
+	close->try      [label="stage:Try \n 问题复发!重开",];
+	test->try       [label="stage:Try \n 测试末过",];
+	
+    /*图元声明
+    stuff       [label="仓库 "];*/
+	start   	[label="发起 ", shape=circle,fontcolor=lightyellow,fillcolor=red4,];
+    end         [label="结束 ", shape=doublecircle,fillcolor=red4,fontcolor=lightyellow];
+
+	creat			[label="兴建 "];
+	try  			[label="接受 "];
+	close  			[label="关闭 "];
+	test  			[label="测试 "];
+	deploy 			[label="部署 "];
+	livin  			[label="在线 "];
+    
+    
+/*end all Graph*/
+}
